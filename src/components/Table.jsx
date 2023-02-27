@@ -3,7 +3,7 @@ import PlanetsContext from '../contexts/PlanetsContext';
 import TableHeaderContext from '../contexts/TableHeaderContext';
 
 function Table() {
-  const { planets } = cuseContext(PlanetsContext);
+  const { planets } = useContext(PlanetsContext);
   const { tableHeader } = useContext(TableHeaderContext);
   return (
     <table>

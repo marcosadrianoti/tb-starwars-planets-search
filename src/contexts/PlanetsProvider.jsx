@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 import PlanetsContext from './PlanetsContext';
 import TableHeaderContext from './TableHeaderContext';
 
@@ -25,10 +25,14 @@ function PlanetsProvider({ children }) {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  });
+
+  const values = useMemo(() => ({
+    planets, setPlanets,
+  }), [planets]);
 
   return (
-    <PlanetsContext.Provider value={ { planets, setPlanets } }>
+    <PlanetsContext.Provider value={ values }>
       {children}
     </PlanetsContext.Provider>
   );
