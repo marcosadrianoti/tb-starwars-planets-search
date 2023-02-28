@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import PlanetsContext from './PlanetsContext';
 
 function PlanetsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
-  // const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [tableHeader, setTableHeader] = useState([]);
   const [filterByName, setFilterByName] = useState('');
+  const [filterByColumns, setFilterByColumns] = useState([]);
+
+  const addFilter = useCallback((filter) => {
+    setFilterByColumns([...filterByColumns, filter]);
+  }, [filterByColumns, setFilterByColumns]);
 
   useEffect(() => {
     fetch('https://swapi.dev/api/planets')
@@ -35,7 +39,9 @@ function PlanetsProvider({ children }) {
     setFilterByName,
     // filteredPlanets,
     // setFilteredPlanets,
-  }), [planets, tableHeader, filterByName]);
+    filterByColumns,
+    addFilter,
+  }), [planets, tableHeader, filterByName, addFilter, filterByColumns]);
 
   return (
     <PlanetsContext.Provider value={ values }>
