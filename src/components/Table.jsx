@@ -32,7 +32,7 @@ function Table() {
 
   const handleClick = () => {
     addFilter(localFilterByColumn);
-    const teste = filteredPlanets.filter((planet) => {
+    const numericFilteredPlanets = filteredPlanets.filter((planet) => {
       switch (localFilterByColumn.comparison) {
       case 'maior que':
         return (
@@ -51,7 +51,7 @@ function Table() {
         return false;
       }
     });
-    setFilteredPlanets(teste);
+    setFilteredPlanets(numericFilteredPlanets);
   };
 
   return (
@@ -99,7 +99,6 @@ function Table() {
               data-testid="value-filter"
               className=""
               value={ localFilterByColumn.value }
-              // value="0"
               id=""
               onChange={ (e) => setLocalFilterByColumn(
                 { ...localFilterByColumn, value: e.target.value },

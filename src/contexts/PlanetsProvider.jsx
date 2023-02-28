@@ -16,14 +16,13 @@ function PlanetsProvider({ children }) {
     fetch('https://swapi.dev/api/planets')
       .then((response) => response.json())
       .then((data) => {
-      // Remove a propriedade residents de cada planeta
+      // Remove a propriedade "residents" de cada planeta
         data.results.map((planet) => delete planet.residents);
         setPlanets(data.results);
 
         // Obtém as chaves do primeiro planeta do array para compor o cabeçalho da tabela.
         const headerKeys = Object.keys(data.results[0]);
         setTableHeader(headerKeys);
-        // setFilteredPlanets(planets);
       })
       .catch((error) => {
         console.error(error);
