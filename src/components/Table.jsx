@@ -32,31 +32,38 @@ function Table() {
     }
   }, [filterByName, planets]);
 
-  const handleClick = () => {
-    addFilter(localFilterByColumn);
-    const numericFilteredPlanets = filteredPlanets.filter((planet) => {
-      switch (localFilterByColumn.comparison) {
-      case 'maior que':
-        return (
-          Number(planet[localFilterByColumn.column]) > Number(localFilterByColumn.value)
-        );
-      case 'menor que':
-        return (
-          Number(planet[localFilterByColumn.column]) < Number(localFilterByColumn.value)
-        );
-      case 'igual a':
-        return (
-          Number(planet[localFilterByColumn.column]) === Number(localFilterByColumn.value)
-        );
+  const handleClick = (e) => {
+    const clickedBtn = e.target.innerHTML;
+    if (clickedBtn === 'Filtrar') {
+      addFilter(localFilterByColumn);
+      const numericFilteredPlanets = filteredPlanets.filter((planet) => {
+        switch (localFilterByColumn.comparison) {
+        case 'maior que':
+          return (
+            Number(planet[localFilterByColumn.column]) > Number(localFilterByColumn.value)
+          );
+        case 'menor que':
+          return (
+            Number(planet[localFilterByColumn.column]) < Number(localFilterByColumn.value)
+          );
+        case 'igual a':
+          return (
+            Number(planet[localFilterByColumn
+              .column]) === Number(localFilterByColumn.value)
+          );
 
-      default:
-        return false;
-      }
-    });
-    const newListOptions = columnsFilter
-      .filter((opt) => opt !== localFilterByColumn.column);
-    setColumnsFilter(newListOptions);
-    setFilteredPlanets(numericFilteredPlanets);
+        default:
+          return false;
+        }
+      });
+      setFilteredPlanets(numericFilteredPlanets);
+      const newListOptions = columnsFilter
+        .filter((opt) => opt !== localFilterByColumn.column);
+      setColumnsFilter(newListOptions);
+      setLocalFilterByColumn({ ...localFilterByColumn, column: newListOptions[0] });
+    } else {
+      console.log(clickedBtn);
+    }
   };
 
   return (
@@ -115,6 +122,14 @@ function Table() {
           onClick={ handleClick }
         >
           Filtrar
+        </button>
+        <button
+          className=""
+          type="button"
+          data-testid="button-remove-filters"
+          onClick={ handleClick }
+        >
+          Remover Filtros
         </button>
       </div>
       <table>
