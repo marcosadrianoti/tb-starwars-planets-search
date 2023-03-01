@@ -127,7 +127,7 @@ function Table() {
           {filteredPlanets
             .map((data) => (
               <tr key={ data[tableHeader[0]] }>
-                <td>{data[tableHeader[0]]}</td>
+                <td data-testid="planet-name">{data[tableHeader[0]]}</td>
                 <td>{data[tableHeader[1]]}</td>
                 <td>{data[tableHeader[2]]}</td>
                 <td>{data[tableHeader[3]]}</td>

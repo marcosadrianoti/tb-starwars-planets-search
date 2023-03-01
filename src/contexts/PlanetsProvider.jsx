@@ -23,10 +23,10 @@ function PlanetsProvider({ children }) {
         // Obtém as chaves do primeiro planeta do array para compor o cabeçalho da tabela.
         const headerKeys = Object.keys(data.results[0]);
         setTableHeader(headerKeys);
-      })
-      .catch((error) => {
-        console.error(error);
       });
+    // .catch((error) => {
+    //   console.error(error);
+    // });
   }, []);
 
   const values = useMemo(() => ({
