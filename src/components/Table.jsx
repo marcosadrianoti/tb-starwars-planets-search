@@ -10,13 +10,12 @@ function Table() {
   });
   const {
     planets,
-    // filteredPlanets,
-    // setFilteredPlanets,
     tableHeader,
     filterByName,
-    // setFilterByName,
-    // filterByColumns,
+    filterByColumns,
+    setFilterByColumns,
     addFilter,
+    removeFilter,
     columnsFilter,
     setColumnsFilter,
   } = useContext(PlanetsContext);
@@ -32,37 +31,71 @@ function Table() {
     }
   }, [filterByName, planets]);
 
+  const toFilter = () => {
+    addFilter(localFilterByColumn);
+    const numericFilteredPlanets = filteredPlanets.filter((planet) => {
+      switch (localFilterByColumn.comparison) {
+      case 'maior que':
+        return (
+          Number(planet[localFilterByColumn.column]) > Number(localFilterByColumn.value)
+        );
+      case 'menor que':
+        return (
+          Number(planet[localFilterByColumn.column]) < Number(localFilterByColumn.value)
+        );
+      case 'igual a':
+        return (
+          Number(planet[localFilterByColumn
+            .column]) === Number(localFilterByColumn.value)
+        );
+
+      default:
+        return false;
+      }
+    });
+    setFilteredPlanets(numericFilteredPlanets);
+    const newListOptions = columnsFilter
+      .filter((opt) => opt !== localFilterByColumn.column);
+    setColumnsFilter(newListOptions);
+    setLocalFilterByColumn({ ...localFilterByColumn, column: newListOptions[0] });
+  };
+
   const handleClick = (e) => {
     const clickedBtn = e.target.innerHTML;
     if (clickedBtn === 'Filtrar') {
-      addFilter(localFilterByColumn);
-      const numericFilteredPlanets = filteredPlanets.filter((planet) => {
-        switch (localFilterByColumn.comparison) {
-        case 'maior que':
-          return (
-            Number(planet[localFilterByColumn.column]) > Number(localFilterByColumn.value)
-          );
-        case 'menor que':
-          return (
-            Number(planet[localFilterByColumn.column]) < Number(localFilterByColumn.value)
-          );
-        case 'igual a':
-          return (
-            Number(planet[localFilterByColumn
-              .column]) === Number(localFilterByColumn.value)
-          );
-
-        default:
-          return false;
-        }
+      toFilter();
+    } else if (clickedBtn === 'Remover Filtros') {
+      setFilterByColumns([]);
+      setColumnsFilter([
+        'population', 'orbital_period', 'diameter', 'surface_water', 'rotation_period',
+      ]);
+      setFilteredPlanets(planets);
+    } else if (clickedBtn === 'Apagar') {
+      const nameFilter = e.target.value;
+      removeFilter(nameFilter);
+      setFilteredPlanets([...planets]);
+      filterByColumns.forEach((filter) => {
+        const numericFilteredPlanets = planets.filter((planet) => {
+          switch (filter.comparison) {
+          case 'maior que':
+            return (
+              Number(planet[filter.column]) > Number(filter.value)
+            );
+          case 'menor que':
+            return (
+              Number(planet[filter.column]) < Number(filter.value)
+            );
+          case 'igual a':
+            return (
+              Number(planet[filter
+                .column]) === Number(filter.value)
+            );
+          default:
+            return false;
+          }
+        });
+        setFilteredPlanets(numericFilteredPlanets);
       });
-      setFilteredPlanets(numericFilteredPlanets);
-      const newListOptions = columnsFilter
-        .filter((opt) => opt !== localFilterByColumn.column);
-      setColumnsFilter(newListOptions);
-      setLocalFilterByColumn({ ...localFilterByColumn, column: newListOptions[0] });
-    } else {
-      console.log(clickedBtn);
     }
   };
 
@@ -132,6 +165,26 @@ function Table() {
           Remover Filtros
         </button>
       </div>
+      { filterByColumns
+        .map((filter, index) => (
+          <div key={ index } data-testid="filter">
+            <span>
+              {filter.column}
+              {' - '}
+              {filter.comparison}
+              {' - '}
+              {filter.value}
+              {' '}
+            </span>
+            <button
+              className=""
+              value={ filter.column }
+              type="button"
+              onClick={ handleClick }
+            >
+              Apagar
+            </button>
+          </div>))}
       <table>
         <thead>
           <tr>

@@ -15,6 +15,13 @@ function PlanetsProvider({ children }) {
     setFilterByColumns([...filterByColumns, filter]);
   }, [filterByColumns, setFilterByColumns]);
 
+  const removeFilter = useCallback((columnFilter) => {
+    const index = filterByColumns.findIndex((filter) => filter.column === columnFilter);
+    filterByColumns.splice(index, 1);
+    setFilterByColumns([...filterByColumns]);
+    setColumnsFilter([...columnsFilter, columnFilter]);
+  }, [filterByColumns, columnsFilter, setFilterByColumns, setColumnsFilter]);
+
   useEffect(() => {
     fetch('https://swapi.dev/api/planets')
       .then((response) => response.json())
@@ -27,9 +34,6 @@ function PlanetsProvider({ children }) {
         const headerKeys = Object.keys(data.results[0]);
         setTableHeader(headerKeys);
       });
-    // .catch((error) => {
-    //   console.error(error);
-    // });
   }, []);
 
   const values = useMemo(() => ({
@@ -39,13 +43,15 @@ function PlanetsProvider({ children }) {
     setTableHeader,
     filterByName,
     setFilterByName,
-    // filteredPlanets,
-    // setFilteredPlanets,
+    setFilterByColumns,
     filterByColumns,
     addFilter,
+    removeFilter,
     columnsFilter,
     setColumnsFilter,
-  }), [planets, tableHeader, filterByName, addFilter, filterByColumns, columnsFilter]);
+  }), [
+    planets,
+    tableHeader, filterByName, addFilter, removeFilter, filterByColumns, columnsFilter]);
 
   return (
     <PlanetsContext.Provider value={ values }>
