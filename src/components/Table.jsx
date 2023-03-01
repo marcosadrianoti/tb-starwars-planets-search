@@ -17,6 +17,8 @@ function Table() {
     // setFilterByName,
     // filterByColumns,
     addFilter,
+    columnsFilter,
+    setColumnsFilter,
   } = useContext(PlanetsContext);
 
   useEffect(() => {
@@ -51,6 +53,9 @@ function Table() {
         return false;
       }
     });
+    const newListOptions = columnsFilter
+      .filter((opt) => opt !== localFilterByColumn.column);
+    setColumnsFilter(newListOptions);
     setFilteredPlanets(numericFilteredPlanets);
   };
 
@@ -68,11 +73,8 @@ function Table() {
               { ...localFilterByColumn, column: e.target.value },
             ) }
           >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="surface_water">surface_water</option>
-            <option value="rotation_period">rotation_period</option>
+            {columnsFilter
+              .map((column) => <option key={ column } value={ column }>{column}</option>)}
           </select>
         </div>
         <div className="">

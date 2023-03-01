@@ -7,6 +7,9 @@ function PlanetsProvider({ children }) {
   const [tableHeader, setTableHeader] = useState([]);
   const [filterByName, setFilterByName] = useState('');
   const [filterByColumns, setFilterByColumns] = useState([]);
+  const [columnsFilter, setColumnsFilter] = useState([
+    'population', 'orbital_period', 'diameter', 'surface_water', 'rotation_period',
+  ]);
 
   const addFilter = useCallback((filter) => {
     setFilterByColumns([...filterByColumns, filter]);
@@ -40,7 +43,9 @@ function PlanetsProvider({ children }) {
     // setFilteredPlanets,
     filterByColumns,
     addFilter,
-  }), [planets, tableHeader, filterByName, addFilter, filterByColumns]);
+    columnsFilter,
+    setColumnsFilter,
+  }), [planets, tableHeader, filterByName, addFilter, filterByColumns, columnsFilter]);
 
   return (
     <PlanetsContext.Provider value={ values }>
