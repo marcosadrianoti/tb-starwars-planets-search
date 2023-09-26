@@ -1,17 +1,16 @@
 # Projeto Star Wars Planets Search!! :telescope:
-Projeto desenvolvido grupo durante o curso de Desenvolvimento Web na Trybe. Divulgado aqui como portfólio de aprendizado.
+Projeto desenvolvido por mim durante o curso de Desenvolvimento Web na Trybe. Divulgado aqui como portfólio de aprendizado.
 
 <details>
 <summary><strong>Objetivos do projeto:</strong></summary>
 
-  * Desenvolver um jogo de perguntas e respostas baseado no jogo Trivia utilizando `React` e `Redux`, desenvolvendo em grupo suas funcionalidades de acordo com as demandas definidas em um quadro `Kanban`.
+  * Desenvolver uma lista com filtros de planetas do universo de Star Wars usando `Context API` e `Hooks` para controlar os estados globais.
   * Verificar se eu era capaz de:
-    * Criar um `store Redux` em aplicações `React`.
-    * Criar `reducers` no `Redux` em aplicações `React`.
-    * Criar `actions` no `Redux` em aplicações `React`.
-    * Criar `dispatchers` no `Redux` em aplicações `React`.
-    * Conectar `Redux` aos componentes `React`.
-    * Criar `actions` assíncronas na sua aplicação `React` que faz uso de `Redux`.
+    * Utilizar a `Context API` do `React` para gerenciar estado.
+    * Utilizar o `React Hook useState`.
+    * Utilizar o `React Hook useContext`.
+    * Utilizar o `React Hook useEffect`.
+    * Criar `React Hooks` customizados.
     * Escrever testes para garantir que sua aplicação possua uma boa cobertura de testes.
 </details>
 <details>
