@@ -39,13 +39,13 @@ cd meu-diretorio
 Clone o projeto com o comando `git clone`:
 
 ```bash
-git clone git@github.com:marcosadrianoti/tb-trivia-react-redux.git
+git clone git@github.com:marcosadrianoti/tb-starwars-planets-search.git
 ```
 
 Acesse o diretório do projeto com o comando `cd`:
 
 ```bash
-cd tb-trivia-react-redux
+cd tb-starwars-planets-search
 ```
 
 Instale as dependências executando:
